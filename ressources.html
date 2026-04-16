@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ressources — Les Curieuses de l'IA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --vert-sauge: #7C9A7E;
+      --vert-fonce: #4A6B4C;
+      --vert-clair: #B8D4BA;
+      --vert-pale: #E8F0E9;
+      --rose-poudre: #E8C4B8;
+      --blanc-casse: #F9F6F0;
+      --bleu-nuit: #2D4A5E;
+      --jaune-miel: #D4A843;
+      --texte: #2C2C2C;
+      --texte-doux: #5C5C5C;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--blanc-casse);
+      color: var(--texte);
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 18px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(249,246,240,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(124,154,126,0.2);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; color: var(--vert-fonce);
+      text-decoration: none; display: flex; align-items: center; gap: 8px;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 28px;
+    }
+    .nav-links a {
+      font-size: 0.88rem; color: var(--texte-doux);
+      text-decoration: none; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--vert-fonce); }
+    .nav-cta {
+      background: var(--jaune-miel); color: white;
+      padding: 10px 22px; border-radius: 30px;
+      text-decoration: none; font-size: 0.88rem; font-weight: 700;
+      transition: all 0.3s;
+    }
+    .nav-cta:hover { background: #b8902e; transform: translateY(-1px); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 140px 80px 80px;
+      background: linear-gradient(135deg, var(--bleu-nuit) 0%, #3a5c70 100%);
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute; top: -100px; right: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(124,154,126,0.2) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .page-header::after {
+      content: '';
+      position: absolute; bottom: -80px; left: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(232,196,184,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .page-header .section-label {
+      color: var(--vert-clair);
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 16px; display: block;
+      position: relative; z-index: 1;
+    }
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      color: white; line-height: 1.2;
+      margin-bottom: 20px;
+      position: relative; z-index: 1;
+    }
+    .page-header h1 em { font-style: italic; color: var(--jaune-miel); }
+    .page-header p {
+      font-size: 1rem; color: rgba(255,255,255,0.65);
+      max-width: 580px; margin: 0 auto;
+      line-height: 1.8; font-style: italic;
+      position: relative; z-index: 1;
+    }
+
+    /* ── NAV INTERNE ── */
+    .nav-interne {
+      background: white;
+      border-bottom: 1px solid rgba(124,154,126,0.15);
+      padding: 0 80px;
+      display: flex; gap: 0;
+      position: sticky; top: 65px; z-index: 90;
+    }
+    .nav-interne a {
+      padding: 18px 28px;
+      font-size: 0.88rem; font-weight: 700;
+      color: var(--texte-doux);
+      text-decoration: none;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+    .nav-interne a:hover { color: var(--vert-fonce); border-color: var(--vert-clair); }
+    .nav-interne a.active { color: var(--vert-fonce); border-color: var(--vert-sauge); }
+
+    /* ── SECTIONS ── */
+    .section { padding: 90px 80px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      display: inline-block; color: var(--vert-sauge);
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 2.8vw, 2.4rem);
+      color: var(--bleu-nuit); line-height: 1.25;
+      margin-bottom: 10px;
+    }
+    .section h2 em { font-style: italic; color: var(--vert-sauge); }
+    .section-intro {
+      font-size: 0.95rem; color: var(--texte-doux);
+      line-height: 1.8; max-width: 640px;
+      margin-bottom: 52px; font-style: italic;
+    }
+
+    /* ── ARTICLES DE BLOG ── */
+    .section-blog { background: var(--blanc-casse); }
+    .blog-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .blog-card {
+      background: white; border-radius: 20px;
+      overflow: hidden;
+      border: 2px solid transparent;
+      transition: all 0.3s;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    .blog-card:hover {
+      border-color: var(--vert-clair);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(74,107,76,0.1);
+    }
+    .blog-card-image {
+      height: 180px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem;
+    }
+    .blog-card-image.bg1 { background: linear-gradient(135deg, var(--vert-pale), var(--vert-clair)); }
+    .blog-card-image.bg2 { background: linear-gradient(135deg, #F5E6C0, #E8C4B8); }
+    .blog-card-image.bg3 { background: linear-gradient(135deg, #EEF2F8, #D0DDE6); }
+    .blog-card-body { padding: 24px; }
+    .blog-card-tag {
+      display: inline-block;
+      background: var(--vert-pale); color: var(--vert-fonce);
+      padding: 3px 12px; border-radius: 12px;
+      font-size: 0.75rem; font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .blog-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; color: var(--bleu-nuit);
+      margin-bottom: 10px; line-height: 1.4;
+    }
+    .blog-card p {
+      font-size: 0.85rem; color: var(--texte-doux);
+      line-height: 1.7; margin-bottom: 16px;
+    }
+    .blog-card-link {
+      font-size: 0.82rem; font-weight: 700;
+      color: var(--vert-sauge); text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+      transition: gap 0.2s;
+    }
+    .blog-card-link:hover { gap: 10px; }
+    .blog-soon {
+      margin-top: 32px;
+      background: var(--vert-pale);
+      border-radius: 16px; padding: 20px 24px;
+      font-size: 0.88rem; color: var(--vert-fonce);
+      font-style: italic; text-align: center;
+    }
+
+    /* ── OUTILS ── */
+    .section-outils { background: white; }
+    .outils-intro-note {
+      background: var(--blanc-casse);
+      border-left: 3px solid var(--jaune-miel);
+      padding: 14px 20px; border-radius: 0 12px 12px 0;
+      font-size: 0.88rem; color: var(--texte-doux);
+      font-style: italic; margin-bottom: 40px;
+      max-width: 640px;
+    }
+    .outils-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .outil-card {
+      background: var(--blanc-casse); border-radius: 18px;
+      padding: 28px 24px;
+      border: 2px solid transparent;
+      transition: all 0.3s; position: relative;
+    }
+    .outil-card:hover {
+      border-color: var(--vert-clair);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(74,107,76,0.1);
+    }
+    .outil-logo {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .outil-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; color: var(--bleu-nuit);
+      margin-bottom: 8px;
+    }
+    .outil-card p {
+      font-size: 0.85rem; color: var(--texte-doux);
+      line-height: 1.7; margin-bottom: 14px;
+    }
+    .outil-usage {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px;
+    }
+    .outil-usage span {
+      background: var(--vert-pale); color: var(--vert-fonce);
+      padding: 2px 10px; border-radius: 10px;
+      font-size: 0.72rem; font-weight: 700;
+    }
+    .outil-lien {
+      font-size: 0.8rem; color: var(--vert-sauge);
+      text-decoration: none; font-weight: 700;
+      display: flex; align-items: center; gap: 4px;
+      transition: gap 0.2s;
+    }
+    .outil-lien:hover { gap: 8px; }
+    .outil-badge-perso {
+      position: absolute; top: 16px; right: 16px;
+      background: var(--jaune-miel); color: white;
+      font-size: 0.68rem; font-weight: 700;
+      padding: 2px 10px; border-radius: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── FORMATIONS ── */
+    .section-formations { background: var(--blanc-casse); }
+    .formations-note {
+      background: white;
+      border-left: 3px solid var(--vert-sauge);
+      padding: 14px 20px; border-radius: 0 12px 12px 0;
+      font-size: 0.88rem; color: var(--texte-doux);
+      font-style: italic; margin-bottom: 48px;
+      max-width: 640px;
+    }
+    .formations-profils {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    .profil-bloc { }
+    .profil-titre {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--vert-clair);
+    }
+    .profil-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--vert-pale);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .profil-titre h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; color: var(--bleu-nuit);
+    }
+    .profil-titre p { font-size: 0.8rem; color: var(--texte-doux); }
+    .formation-item {
+      background: white; border-radius: 14px;
+      padding: 20px 22px; margin-bottom: 14px;
+      border: 1px solid rgba(124,154,126,0.15);
+      transition: all 0.2s;
+    }
+    .formation-item:hover {
+      border-color: var(--vert-clair);
+      box-shadow: 0 6px 20px rgba(74,107,76,0.08);
+      transform: translateX(4px);
+    }
+    .formation-item-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; margin-bottom: 8px; gap: 12px;
+    }
+    .formation-item h4 {
+      font-size: 0.92rem; font-weight: 700;
+      color: var(--bleu-nuit);
+    }
+    .formation-tag {
+      font-size: 0.7rem; font-weight: 700;
+      padding: 2px 10px; border-radius: 10px;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .formation-tag.cpf { background: #D5EAD5; color: var(--vert-fonce); }
+    .formation-tag.opco { background: #D0DDE6; color: var(--bleu-nuit); }
+    .formation-tag.direct { background: var(--jaune-miel); color: white; }
+    .formation-item p {
+      font-size: 0.83rem; color: var(--texte-doux);
+      line-height: 1.6; margin-bottom: 10px;
+    }
+    .formation-lien {
+      font-size: 0.8rem; color: var(--vert-sauge);
+      text-decoration: none; font-weight: 700;
+      display: inline-flex; align-items: center; gap: 4px;
+      transition: gap 0.2s;
+    }
+    .formation-lien:hover { gap: 8px; }
+
+    /* Bloc bootcamp mis en avant subtilement */
+    .formation-item.bootcamp {
+      background: linear-gradient(135deg, var(--vert-pale) 0%, white 100%);
+      border: 2px solid var(--vert-clair);
+    }
+    .formation-item.bootcamp h4 { color: var(--vert-fonce); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bleu-nuit);
+      color: rgba(255,255,255,0.7);
+      text-align: center; padding: 40px;
+    }
+    footer .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; color: white; margin-bottom: 6px;
+    }
+    footer .footer-tagline {
+      font-size: 0.82rem; color: var(--vert-clair);
+      margin-bottom: 20px; font-style: italic;
+      max-width: 500px; margin-left: auto; margin-right: auto;
+    }
+    footer .footer-links {
+      display: flex; justify-content: center;
+      gap: 24px; flex-wrap: wrap;
+    }
+    footer .footer-links a {
+      color: rgba(255,255,255,0.4); font-size: 0.8rem;
+      text-decoration: none; transition: color 0.2s;
+    }
+    footer .footer-links a:hover { color: white; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .page-header, .section { padding: 80px 30px 60px; }
+      nav, .nav-interne { padding: 16px 20px; }
+      .blog-grid, .outils-grid { grid-template-columns: 1fr; }
+      .formations-profils { grid-template-columns: 1fr; }
+      .nav-interne { overflow-x: auto; white-space: nowrap; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html" class="nav-logo">🌿 Les Curieuses de l'IA</a>
+  <div class="nav-links">
+    <a href="index.html">Accueil</a>
+    <a href="ressources.html" class="active">Ressources</a>
+    <a href="page-vente-bootcamp.html">Bootcamp</a>
+    <a href="index.html#inscription" class="nav-cta">Je m'inscris</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <span class="section-label">Mes ressources</span>
+  <h1>Ce que j'utilise,<br/>ce que je <em>recommande</em></h1>
+  <p>Je ne partage ici que des ressources que j'ai testées moi-même. Pas de partenariats forcés, pas de publicité, juste mes vraies recommandations.</p>
+</section>
+
+<!-- NAV INTERNE -->
+<div class="nav-interne">
+  <a href="#blog" class="active">📝 Articles</a>
+  <a href="#outils">🛠️ Outils</a>
+  <a href="#formations">🎓 Formations</a>
+</div>
+
+<!-- ARTICLES DE BLOG -->
+<section class="section section-blog" id="blog">
+  <div class="section-inner">
+    <div class="section-label">Le blog</div>
+    <h2>Articles & <em>réflexions</em></h2>
+    <p class="section-intro">Des articles concrets, sans jargon, pour avancer pas à pas dans ta compréhension de l'IA générative.</p>
+
+    <div class="blog-grid">
+      <div class="blog-card">
+        <div class="blog-card-image bg1">🌱</div>
+        <div class="blog-card-body">
+          <span class="blog-card-tag">Débutante</span>
+          <h3>5 choses que ChatGPT peut faire pour toi dès aujourd'hui</h3>
+          <p>Tu n'as pas encore osé te lancer ? Voici 5 usages concrets, testés, applicables dans la journée, quel que soit ton métier.</p>
+          <a href="#" class="blog-card-link">Lire l'article →</a>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-card-image bg2">💡</div>
+        <div class="blog-card-body">
+          <span class="blog-card-tag">Astuce</span>
+          <h3>Pourquoi l'IA ne te comprend pas — et comment y remédier</h3>
+          <p>Le problème n'est pas l'outil. C'est la façon dont tu lui parles. Voici comment formuler tes demandes pour obtenir des réponses vraiment utiles.</p>
+          <a href="#" class="blog-card-link">Lire l'article →</a>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-card-image bg3">🚀</div>
+        <div class="blog-card-body">
+          <span class="blog-card-tag">Entrepreneures</span>
+          <h3>Comment j'utilise l'IA pour préparer mes formations</h3>
+          <p>Retour d'expérience concret sur ma propre utilisation de l'IA dans mon activité de formatrice. Ce qui marche, ce qui ne marche pas.</p>
+          <a href="#" class="blog-card-link">Lire l'article →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="blog-soon">
+      🌿 De nouveaux articles arrivent chaque semaine, abonne-toi à la newsletter pour ne rien manquer.
+    </div>
+  </div>
+</section>
+
+<!-- OUTILS -->
+<section class="section section-outils" id="outils">
+  <div class="section-inner">
+    <div class="section-label">Mes outils</div>
+    <h2>Les outils que <em>j'utilise</em></h2>
+    <p class="section-intro">Ce sont les outils de mon quotidien. Je les ai sélectionnés pour leur simplicité et leur utilité réelle, pas pour leurs arguments marketing.</p>
+
+    <div class="outils-intro-note">
+      "Je n'utilise et ne recommande que des outils que j'ai testés personnellement dans mon activité. Certains ont des versions gratuites parfaitement suffisantes pour démarrer."
+    </div>
+
+    <div class="outils-grid">
+      <div class="outil-card">
+        <div class="outil-badge-perso">J'utilise</div>
+        <div class="outil-logo">🤖</div>
+        <h3>ChatGPT</h3>
+        <p>L'outil le plus polyvalent pour rédiger, reformuler, résumer, brainstormer. Ma porte d'entrée principale dans l'IA générative.</p>
+        <div class="outil-usage">
+          <span>Rédaction</span>
+          <span>Résumé</span>
+          <span>Idéation</span>
+        </div>
+        <a href="https://chat.openai.com" target="_blank" class="outil-lien">Découvrir →</a>
+      </div>
+      <div class="outil-card">
+        <div class="outil-badge-perso">J'utilise</div>
+        <div class="outil-logo">🇫🇷</div>
+        <h3>Mistral</h3>
+        <p>L'alternative française, open source, excellente pour les contenus professionnels. Idéale si tu travailles avec des données sensibles.</p>
+        <div class="outil-usage">
+          <span>Confidentialité</span>
+          <span>Rédaction</span>
+          <span>Analyse</span>
+        </div>
+        <a href="https://mistral.ai" target="_blank" class="outil-lien">Découvrir →</a>
+      </div>
+      <div class="outil-card">
+        <div class="outil-badge-perso">J'utilise</div>
+        <div class="outil-logo">✨</div>
+        <h3>Gamma</h3>
+        <p>Pour créer des présentations et documents visuels en quelques minutes avec l'IA. Un gain de temps considérable pour les supports de formation.</p>
+        <div class="outil-usage">
+          <span>Présentations</span>
+          <span>Visuels</span>
+          <span>Rapports</span>
+        </div>
+        <a href="https://gamma.app" target="_blank" class="outil-lien">Découvrir →</a>
+      </div>
+      <div class="outil-card">
+        <div class="outil-badge-perso">J'utilise</div>
+        <div class="outil-logo">📚</div>
+        <h3>NotebookLM</h3>
+        <p>L'outil Google pour analyser et questionner tes propres documents. Idéal pour synthétiser des ressources de formation ou préparer un cours.</p>
+        <div class="outil-usage">
+          <span>Analyse docs</span>
+          <span>Synthèse</span>
+          <span>Recherche</span>
+        </div>
+        <a href="https://notebooklm.google.com" target="_blank" class="outil-lien">Découvrir →</a>
+      </div>
+      <div class="outil-card">
+        <div class="outil-badge-perso">J'utilise</div>
+        <div class="outil-logo">🎨</div>
+        <h3>Canva IA</h3>
+        <p>Pour créer des visuels professionnels rapidement grâce aux fonctionnalités IA intégrées. Parfait pour les réseaux sociaux et supports de com.</p>
+        <div class="outil-usage">
+          <span>Visuels</span>
+          <span>Réseaux sociaux</span>
+          <span>Design</span>
+        </div>
+        <a href="https://canva.com" target="_blank" class="outil-lien">Découvrir →</a>
+      </div>
+      <div class="outil-card">
+        <div class="outil-badge-perso">J'utilise</div>
+        <div class="outil-logo">🔍</div>
+        <h3>Perplexity</h3>
+        <p>Mon moteur de recherche augmenté par l'IA. Pour faire une veille rapide, vérifier une information ou explorer un sujet en profondeur.</p>
+        <div class="outil-usage">
+          <span>Recherche</span>
+          <span>Veille</span>
+          <span>Vérification</span>
+        </div>
+        <a href="https://perplexity.ai" target="_blank" class="outil-lien">Découvrir →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATIONS -->
+<section class="section section-formations" id="formations">
+  <div class="section-inner">
+    <div class="section-label">Formations recommandées</div>
+    <h2>Se former selon <em>sa situation</em></h2>
+    <p class="section-intro">Des ressources que j'ai moi-même utilisées ou dont je recommande les créateurs. En fonction de là où tu en es.</p>
+
+    <div class="formations-note">
+      "Je ne recommande que des formations et des personnes en qui j'ai confiance. Certaines sont finançables, d'autres non, je le précise à chaque fois."
+    </div>
+
+    <div class="formations-profils">
+
+      <!-- PROFIL 1 : SALARIÉE -->
+      <div class="profil-bloc">
+        <div class="profil-titre">
+          <div class="profil-icon">🌱</div>
+          <div>
+            <h3>Tu es salariée</h3>
+            <p>Tu as du CPF disponible</p>
+          </div>
+        </div>
+
+        <div class="formation-item">
+          <div class="formation-item-header">
+            <h4>Live Mentor</h4>
+            <span class="formation-tag cpf">Éligible CPF</span>
+          </div>
+          <p>Une plateforme de formations en ligne avec des mentors disponibles. J'y ai trouvé des parcours sérieux sur l'IA et le digital, adaptés aux reconversions.</p>
+          <a href="#" class="formation-lien">Voir les formations →</a>
+        </div>
+
+        <div class="formation-item">
+          <div class="formation-item-header">
+            <h4>Ludos Allen</h4>
+            <span class="formation-tag cpf">Éligible CPF</span>
+          </div>
+          <p>Des formations pratico-pratiques sur l'IA et les outils digitaux. Un créateur de contenu en qui j'ai confiance pour la qualité et la pédagogie.</p>
+          <a href="#" class="formation-lien">Découvrir →</a>
+        </div>
+
+      </div>
+
+      <!-- PROFIL 2 : ENTREPRENEURE -->
+      <div class="profil-bloc">
+        <div class="profil-titre">
+          <div class="profil-icon">🚀</div>
+          <div>
+            <h3>Tu es entrepreneure</h3>
+            <p>Tu peux solliciter ton OPCO</p>
+          </div>
+        </div>
+
+        <div class="formation-item bootcamp">
+          <div class="formation-item-header">
+            <h4>Personnalise Ton Outil IA, le bootcamp</h4>
+            <span class="formation-tag opco">Financement OPCO</span>
+          </div>
+          <p>Mon bootcamp en ligne sur 4 semaines pour configurer et piloter ton IA générative pour ton activité pro. Groupe de 8 max, certifié Qualiopi.</p>
+          <a href="page-vente-bootcamp.html" class="formation-lien">En savoir plus →</a>
+        </div>
+
+        <div class="formation-item">
+          <div class="formation-item-header">
+            <h4>Ludos Allen</h4>
+            <span class="formation-tag direct">Achat direct</span>
+          </div>
+          <p>Ses ressources sont aussi accessibles en achat direct, sans financement. Un bon point d'entrée pour commencer à explorer l'IA à son rythme.</p>
+          <a href="#" class="formation-lien">Découvrir →</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">🌿 Les Curieuses de l'IA</div>
+  <div class="footer-tagline">Un espace bienveillant pour explorer, comprendre et s'approprier l'intelligence artificielle, pour les femmes qui osent.</div>
+  <div class="footer-links">
+    <a href="index.html">Accueil</a>
+    <a href="ressources.html">Ressources</a>
+    <a href="page-vente-bootcamp.html">Bootcamp</a>
+    <a href="#">Mentions légales</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // Nav interne active state au scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-interne a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 150) current = s.getAttribute('id');
+    });
+    navLinks.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>

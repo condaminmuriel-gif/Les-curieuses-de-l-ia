@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Les Curieuses de l'IA, Un espace bienveillant pour explorer, comprendre et s'approprier l'IA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --vert-sauge: #7C9A7E;
+      --vert-fonce: #4A6B4C;
+      --vert-clair: #B8D4BA;
+      --rose-poudre: #E8C4B8;
+      --blanc-casse: #F9F6F0;
+      --bleu-nuit: #2D4A5E;
+      --jaune-miel: #D4A843;
+      --texte: #2C2C2C;
+      --texte-doux: #5C5C5C;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background-color: var(--blanc-casse);
+      color: var(--texte);
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(249,246,240,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(124,154,126,0.2);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--vert-fonce);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-logo span { font-size: 1.5rem; }
+
+    .nav-cta {
+      background: var(--vert-sauge);
+      color: white;
+      padding: 10px 22px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--vert-fonce);
+      transform: translateY(-1px);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 120px 80px 80px;
+      position: relative;
+      overflow: hidden;
+      gap: 60px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(184,212,186,0.4) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(232,196,184,0.3) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .hero-content { position: relative; z-index: 1; }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--vert-clair);
+      color: var(--vert-fonce);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      line-height: 1.15;
+      color: var(--vert-fonce);
+      margin-bottom: 12px;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--vert-sauge);
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      color: var(--texte-doux);
+      line-height: 1.75;
+      margin-bottom: 36px;
+      max-width: 520px;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero-sub strong {
+      color: var(--bleu-nuit);
+      font-weight: 700;
+    }
+
+    .hero-form {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .hero-form input[type="email"] {
+      flex: 1;
+      min-width: 220px;
+      padding: 14px 20px;
+      border: 2px solid var(--vert-clair);
+      border-radius: 30px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.95rem;
+      background: white;
+      color: var(--texte);
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .hero-form input[type="email"]:focus {
+      border-color: var(--vert-sauge);
+    }
+
+    .btn-primary {
+      background: var(--jaune-miel);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      background: #b8902e;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(212,168,67,0.35);
+    }
+
+    .hero-reassurance {
+      margin-top: 16px;
+      font-size: 0.82rem;
+      color: var(--texte-doux);
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      animation: fadeUp 1s ease both;
+    }
+
+    .hero-reassurance span::before { content: '✓ '; color: var(--vert-sauge); font-weight: 700; }
+
+    /* Hero visual */
+    .hero-visual {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 1.2s ease both;
+    }
+
+    .hero-illustration {
+      width: 100%;
+      max-width: 480px;
+      background: white;
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(74,107,76,0.12);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-illustration::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--vert-sauge), var(--jaune-miel), var(--rose-poudre));
+    }
+
+    .newsletter-preview {
+      font-family: 'Lato', sans-serif;
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f0ece6;
+    }
+
+    .preview-avatar {
+      width: 44px; height: 44px;
+      background: var(--vert-clair);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+
+    .preview-meta { flex: 1; }
+    .preview-from { font-size: 0.85rem; font-weight: 700; color: var(--vert-fonce); }
+    .preview-subject { font-size: 0.78rem; color: var(--texte-doux); }
+
+    .preview-body { font-size: 0.88rem; line-height: 1.7; color: var(--texte); }
+
+    .preview-question {
+      background: var(--blanc-casse);
+      border-left: 3px solid var(--jaune-miel);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 14px 0;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--bleu-nuit);
+    }
+
+    .preview-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .tag {
+      background: var(--vert-clair);
+      color: var(--vert-fonce);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .tag.rose { background: #f5ddd6; color: #8B5A4A; }
+    .tag.bleu { background: #d0dde6; color: var(--bleu-nuit); }
+
+    /* Floating badges */
+    .float-badge {
+      position: absolute;
+      background: white;
+      border-radius: 12px;
+      padding: 10px 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--vert-fonce);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .float-badge.b1 { top: -20px; right: 20px; animation-delay: 0s; }
+    .float-badge.b2 { bottom: 20px; left: -20px; animation-delay: 1.5s; }
+
+    /* ── POUR QUI ── */
+    .section-pour-qui {
+      padding: 100px 80px;
+      background: white;
+      position: relative;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-label {
+      display: inline-block;
+      color: var(--vert-sauge);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      color: var(--bleu-nuit);
+      line-height: 1.25;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--blanc-casse);
+      border-radius: 20px;
+      padding: 36px 30px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--vert-sauge), var(--vert-clair));
+      transform: scaleX(0);
+      transition: transform 0.3s;
+      transform-origin: left;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(74,107,76,0.12);
+      border-color: var(--vert-clair);
+    }
+
+    .card:hover::after { transform: scaleX(1); }
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--vert-fonce);
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: var(--texte-doux);
+    }
+
+    /* ── CE QUE TU RECOIS ── */
+    .section-contenu {
+      padding: 100px 80px;
+      background: linear-gradient(135deg, #f0f5f0 0%, var(--blanc-casse) 100%);
+    }
+
+    .contenu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .contenu-list { display: flex; flex-direction: column; gap: 20px; }
+
+    .contenu-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 20px;
+      background: white;
+      border-radius: 16px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .contenu-item:hover {
+      transform: translateX(6px);
+      box-shadow: 0 8px 24px rgba(74,107,76,0.1);
+    }
+
+    .contenu-emoji {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      background: var(--blanc-casse);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contenu-text h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--bleu-nuit);
+      margin-bottom: 4px;
+    }
+
+    .contenu-text p {
+      font-size: 0.88rem;
+      color: var(--texte-doux);
+      line-height: 1.6;
+    }
+
+    /* Right side visual */
+    .contenu-visual {
+      position: relative;
+    }
+
+    .visual-circle {
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, var(--vert-clair), var(--vert-sauge));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      position: relative;
+      box-shadow: 0 30px 80px rgba(74,107,76,0.2);
+    }
+
+    .visual-circle-inner {
+      text-align: center;
+      color: white;
+    }
+
+    .visual-circle-inner .big-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .visual-circle-inner p {
+      font-size: 1rem;
+      opacity: 0.9;
+      margin-top: 8px;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+
+    .orbit-item {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      font-size: 1.5rem;
+    }
+
+    .orbit-item.o1 { width: 60px; height: 60px; top: -10px; right: 40px; }
+    .orbit-item.o2 { width: 50px; height: 50px; bottom: 20px; right: -10px; }
+    .orbit-item.o3 { width: 55px; height: 55px; bottom: -10px; left: 40px; }
+    .orbit-item.o4 { width: 50px; height: 50px; top: 30px; left: -10px; }
+
+    /* ── QUIZ ── */
+    .section-quiz {
+      padding: 100px 80px;
+      background: var(--bleu-nuit);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .section-quiz::before {
+      content: '';
+      position: absolute;
+      top: -100px; left: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(124,154,126,0.2) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .section-quiz::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; right: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(232,196,184,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .section-quiz .section-label { color: var(--vert-clair); }
+    .section-quiz h2 { color: white; margin-bottom: 20px; }
+
+    .section-quiz p {
+      color: rgba(255,255,255,0.75);
+      font-size: 1.05rem;
+      max-width: 540px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-secondary {
+      display: inline-block;
+      background: var(--jaune-miel);
+      color: white;
+      padding: 16px 36px;
+      border-radius: 30px;
+      font-family: 'Lato', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-secondary:hover {
+      background: #b8902e;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(212,168,67,0.4);
+    }
+
+    /* ── INSCRIPTION ── */
+    .section-inscription {
+      padding: 100px 80px;
+      background: white;
+      text-align: center;
+    }
+
+    .inscription-box {
+      max-width: 620px;
+      margin: 0 auto;
+      background: var(--blanc-casse);
+      border-radius: 28px;
+      padding: 60px 50px;
+      box-shadow: 0 20px 60px rgba(74,107,76,0.08);
+      border: 2px solid var(--vert-clair);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .inscription-box::before {
+      content: '🌿';
+      position: absolute;
+      top: -20px; right: 30px;
+      font-size: 5rem;
+      opacity: 0.08;
+    }
+
+    .inscription-box h2 { margin-bottom: 12px; }
+
+    .inscription-box .subtitle {
+      color: var(--texte-doux);
+      margin-bottom: 32px;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .inscription-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .inscription-form input {
+      padding: 15px 22px;
+      border: 2px solid var(--vert-clair);
+      border-radius: 30px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.95rem;
+      background: white;
+      outline: none;
+      transition: border-color 0.3s;
+      width: 100%;
+    }
+
+    .inscription-form input:focus { border-color: var(--vert-sauge); }
+
+    .inscription-form .btn-primary { width: 100%; padding: 16px; font-size: 1rem; }
+
+    .garanties {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .garanties span {
+      font-size: 0.82rem;
+      color: var(--texte-doux);
+    }
+
+    .garanties span::before { content: '✓ '; color: var(--vert-sauge); font-weight: 700; }
+
+    .urgence {
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: var(--vert-sauge);
+      font-style: italic;
+    }
+
+    /* ── A PROPOS ── */
+    .section-apropos {
+      padding: 100px 80px;
+      background: linear-gradient(135deg, var(--blanc-casse) 0%, #f0f5f0 100%);
+    }
+
+    .apropos-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .apropos-avatar {
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--vert-clair), var(--vert-sauge));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+      box-shadow: 0 20px 60px rgba(74,107,76,0.2);
+      margin: 0 auto;
+    }
+
+    .apropos-content .section-label { margin-bottom: 12px; display: block; }
+    .apropos-content h2 { margin-bottom: 20px; }
+
+    .apropos-content p {
+      color: var(--texte-doux);
+      line-height: 1.8;
+      font-size: 0.97rem;
+      margin-bottom: 16px;
+    }
+
+    .apropos-content p strong { color: var(--bleu-nuit); }
+
+    .apropos-quote {
+      background: white;
+      border-left: 4px solid var(--jaune-miel);
+      padding: 16px 20px;
+      border-radius: 0 12px 12px 0;
+      margin-top: 24px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--bleu-nuit);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bleu-nuit);
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      padding: 40px 40px;
+    }
+
+    footer .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: white;
+      margin-bottom: 8px;
+    }
+
+    footer .footer-tagline {
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      color: var(--vert-clair);
+    }
+
+    footer .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      font-size: 0.82rem;
+    }
+
+    footer .footer-links a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer .footer-links a:hover { color: white; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-8px); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding: 100px 30px 60px; gap: 40px; }
+      .hero-visual { display: none; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .contenu-grid { grid-template-columns: 1fr; }
+      .contenu-visual { display: none; }
+      .apropos-grid { grid-template-columns: 1fr; }
+      .section-pour-qui,
+      .section-contenu,
+      .section-quiz,
+      .section-inscription,
+      .section-apropos { padding: 70px 30px; }
+      nav { padding: 16px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <span>🌿</span> Les Curieuses de l'IA
+    </a>
+    <a href="#inscription" class="nav-cta">Je me préinscris</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">🌱 Bientôt disponible, Préinscris-toi !</div>
+
+      <h1>L'IA, c'est fait<br/> pour <em>toi.</em><br/>
+      Même si tu n'as<br/>pas encore osé.</h1>
+
+      <p class="hero-sub">
+        Tu sais que l'IA va changer ton quotidien professionnel.
+        Tu veux t'y mettre, mais pas n'importe comment, pas toute seule.
+        <strong>Tu n'as pas encore sauté le pas.</strong>
+        <strong>Les Curieuses sont là pour t'accompagner, pas à pas.</strong>
+      </p>
+
+      <div class="hero-form">
+        <input type="email" placeholder="ton@email.com" />
+        <button class="btn-primary">👉 Je me préinscris !</button>
+      </div>
+
+      <div class="hero-reassurance">
+        <span>Gratuit</span>
+        <span>Sans spam</span>
+        <span>Tu te désinscris quand tu veux</span>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div style="position:relative;">
+        <div class="float-badge b1">🎉 +247 curieuses déjà inscrites</div>
+        <div class="hero-illustration">
+          <div class="newsletter-preview">
+            <div class="preview-header">
+              <div class="preview-avatar">🌿</div>
+              <div class="preview-meta">
+                <div class="preview-from">Les Curieuses de l'IA</div>
+                <div class="preview-subject">✨ Numéro #1, Ta première astuce IA</div>
+              </div>
+            </div>
+            <div class="preview-body">
+              <p>Bonjour Curieuse 👋</p>
+              <div class="preview-question">
+                🎯 Question de la semaine :<br/>
+                <em>As-tu déjà essayé ChatGPT pour rédiger un email professionnel ?</em>
+              </div>
+              <p>Cette semaine, on t'explique comment gagner <strong>30 minutes par jour</strong> grâce à un seul outil IA, sans formation technique, promis !</p>
+            </div>
+            <div class="preview-tags">
+              <span class="tag">💡 Astuce</span>
+              <span class="tag rose">🎮 Quiz</span>
+              <span class="tag bleu">🚀 Défi</span>
+            </div>
+          </div>
+        </div>
+        <div class="float-badge b2">⏱️ 5 min à lire</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POUR QUI -->
+  <section class="section-pour-qui">
+    <div class="section-header">
+      <div class="section-label">Pour qui ?</div>
+      <h2>Cette newsletter est faite pour toi si…</h2>
+    </div>
+    <div class="cards-grid">
+      <div class="card">
+        <span class="card-icon">🌱</span>
+        <h3>Tu es salariée et tu penses à te lancer</h3>
+        <p>Tu sens que l'IA va tout changer autour de toi. Tu veux comprendre comment elle peut t'aider à franchir le pas vers l'entrepreneuriat, sans te perdre dans la technique.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🚀</span>
+        <h3>Tu es entrepreneure et tu veux aller plus loin</h3>
+        <p>Tu as lancé ton activité mais tu manques de temps. L'IA peut t'en faire gagner énormément, encore faut-il savoir par où commencer. On est là pour ça.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🔄</span>
+        <h3>Tu es salariée et tu veux évoluer</h3>
+        <p>Maîtriser l'IA aujourd'hui, c'est l'atout qui fait la différence sur un CV, en réunion, face à ta hiérarchie. Et ton expérience est ton super-pouvoir.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CE QUE TU RECOIS -->
+  <section class="section-contenu">
+    <div class="contenu-grid">
+      <div>
+        <div class="section-header" style="text-align:left; margin-bottom:36px;">
+          <div class="section-label">Chaque semaine</div>
+          <h2>Dans ta boîte mail,<br/>du concret et du fun</h2>
+        </div>
+        <div class="contenu-list">
+          <div class="contenu-item">
+            <div class="contenu-emoji">🎯</div>
+            <div class="contenu-text">
+              <h4>Une question pour démarrer</h4>
+              <p>On t'invite à réfléchir, à tester. Pas de bonne ou mauvaise réponse, juste ta curiosité.</p>
+            </div>
+          </div>
+          <div class="contenu-item">
+            <div class="contenu-emoji">💡</div>
+            <div class="contenu-text">
+              <h4>L'astuce IA de la semaine</h4>
+              <p>Concrète, actionnable, testée. Tu peux l'appliquer dans la journée.</p>
+            </div>
+          </div>
+          <div class="contenu-item">
+            <div class="contenu-emoji">🎮</div>
+            <div class="contenu-text">
+              <h4>Un mini-quiz pour te tester</h4>
+              <p>Parce qu'apprendre en s'amusant, ça rentre mieux, et ça reste plus longtemps !</p>
+            </div>
+          </div>
+          <div class="contenu-item">
+            <div class="contenu-emoji">🚀</div>
+            <div class="contenu-text">
+              <h4>Un défi de la semaine</h4>
+              <p>Une micro-action simple pour passer de la théorie à la pratique.</p>
+            </div>
+          </div>
+          <div class="contenu-item">
+            <div class="contenu-emoji">😊</div>
+            <div class="contenu-text">
+              <h4>Une touche de bonne humeur</h4>
+              <p>Une anecdote, un fail IA, une surprise, parce que la légèreté, c'est aussi une pédagogie.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contenu-visual">
+        <div class="visual-circle">
+          <div class="visual-circle-inner">
+            <div class="big-number">5'</div>
+            <p>de lecture<br/>par semaine</p>
+          </div>
+          <div class="orbit-item o1">🎯</div>
+          <div class="orbit-item o2">💡</div>
+          <div class="orbit-item o3">🎮</div>
+          <div class="orbit-item o4">🚀</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="section-quiz">
+    <div class="section-label">Quiz gratuit</div>
+    <h2>Quel est ton vrai niveau en IA ?</h2>
+    <p>
+      Tu te demandes par où commencer ?<br/>
+      Réponds à notre quiz en 2 minutes et reçois ton profil personnalisé avec les ressources faites pour toi.
+    </p>
+    <button class="btn-secondary">👉 Je découvre mon profil IA</button>
+  </section>
+
+  <!-- INSCRIPTION -->
+  <section class="section-inscription" id="inscription">
+    <div class="inscription-box">
+      <div class="section-label">Préinscription</div>
+      <h2>Sois parmi les premières Curieuses !</h2>
+      <p class="subtitle">
+        La newsletter <strong>Les Curieuses de l'IA</strong> arrive très bientôt.<br/>
+        Inscris-toi dès maintenant pour faire partie des premières à la recevoir, et ne rien manquer du lancement.
+      </p>
+      <div class="inscription-form">
+        <input type="text" placeholder="Ton prénom" />
+        <input type="email" placeholder="Ton adresse email" />
+        <button class="btn-primary">👉 Je me préinscris, j'en suis !</button>
+      </div>
+      <div class="garanties">
+        <span>Préinscription gratuite</span>
+        <span>Avertie en avant-première</span>
+        <span>Zéro spam</span>
+      </div>
+      <p class="urgence">🌿 La liste de lancement se remplit vite. Réserve ta place maintenant.</p>
+    </div>
+  </section>
+
+  <!-- A PROPOS -->
+  <section class="section-apropos">
+    <div class="apropos-grid">
+      <div class="apropos-avatar">👩‍💻</div>
+      <div class="apropos-content">
+        <span class="section-label">Qui suis-je ?</span>
+        <h2>Bonjour, moi c'est<br/>[Ton Prénom] 👋</h2>
+        <p>
+          Je forme des femmes comme toi à l'intelligence artificielle.
+          Pas avec des slides compliqués. Pas avec du jargon incompréhensible.
+          Avec des <strong>exemples vrais, des outils concrets, et beaucoup de bienveillance.</strong>
+        </p>
+        <p>
+          Parce que je suis convaincue d'une chose : ton expérience professionnelle de 20 ans,
+          tes compétences, ton réseau, c'est ton super-pouvoir.
+          <strong>L'IA, c'est juste l'outil qui va le décupler.</strong>
+        </p>
+        <div class="apropos-quote">
+          "Ton expérience de vie, c'est ton super-pouvoir.<br/>
+          L'IA, c'est l'outil qui va le décupler."
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">🌿 Les Curieuses de l'IA</div>
+    <div class="footer-tagline">Un espace bienveillant pour explorer, comprendre et s'approprier l'intelligence artificielle, pour les femmes qui osent.</div>
+    <div class="footer-links">
+      <a href="#">Mentions légales</a>
+      <a href="#">Politique de confidentialité</a>
+      <a href="#">Contact</a>
+    </div>
+  </footer>
+
+</body>
+</html>
