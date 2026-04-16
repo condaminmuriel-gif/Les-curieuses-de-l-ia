@@ -773,17 +773,115 @@
       .section-apropos { padding: 70px 30px; }
       nav { padding: 16px 20px; }
     }
+
+    /* ── HAMBURGER MENU ── */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav-link {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--texte-doux);
+      text-decoration: none;
+      transition: color 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--vert-fonce); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      background: none;
+      border: none;
+      z-index: 200;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--vert-fonce);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 65px; left: 0; right: 0;
+      background: rgba(249,246,240,0.98);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(124,154,126,0.2);
+      padding: 20px 30px 28px;
+      flex-direction: column;
+      gap: 0;
+      z-index: 99;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Lato', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--texte-doux);
+      text-decoration: none;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(124,154,126,0.15);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover, .mobile-menu a.active { color: var(--vert-fonce); }
+    .mobile-menu .mobile-cta {
+      margin-top: 16px;
+      background: var(--jaune-miel);
+      color: white !important;
+      text-align: center;
+      padding: 14px !important;
+      border-radius: 30px;
+      border: none !important;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      nav { padding: 16px 20px; }
+    }
   </style>
 </head>
 <body>
 
   <!-- NAVBAR -->
   <nav>
-    <a href="#" class="nav-logo">
+    <a href="index.html" class="nav-logo">
       <span>🌿</span> Les Curieuses de l'IA
     </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link active">Accueil</a>
+      <a href="ressources.html" class="nav-link">Ressources</a>
+      <a href="page-vente-bootcamp.html" class="nav-link">Bootcamp</a>
+    </div>
     <a href="#inscription" class="nav-cta">Je me préinscris</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="active">Accueil</a>
+    <a href="ressources.html" class="">Ressources</a>
+    <a href="page-vente-bootcamp.html" class="">Bootcamp</a>
+    <a href="#inscription" class="mobile-cta">Je me préinscris</a>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -1001,5 +1099,21 @@
     </div>
   </footer>
 
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  // Fermer le menu quand on clique sur un lien
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  });
+</script>
 </body>
 </html>
